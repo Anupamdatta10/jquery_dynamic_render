@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src=
+"https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js">
+    </script>
+    <style>
+        .quantity {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    color: #212121;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+table{
+    border: 1px solid black;
+}
+td{
+    border: 1px solid black;
+    align-items: center;
+}
+div {
+    display: block;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <table style="width:100%">
+            <thead>
+            <tr>
+                <th>Items</th>
+                <th>Price Details</th>
+            </tr>
+        </thead>
+           <tbody id="tbody">
+
+           </tbody>
+           <tfoot>
+            <tr style="height: 60px;width: 100%;">
+                <td><span>TOTAL :</span></td>
+                <td>
+                
+                <span id="total"></span>
+                </td>
+
+            </tr>
+        </tfoot>
+        </table>
+   
+      
+    </div>
+    <script>
+        var data=[
+            {
+                "name":"burger",
+                "price":34,
+                "quantity":1,
+                "imgurl":"https://theoptimist.news/wp-content/uploads/2019/09/burger-810x456.jpg"
+            }
+            ,
+            {
+                "name":"chips",
+                "price":14,
+                "quantity":1,
+                "imgurl":"https://theoptimist.news/wp-content/uploads/2019/09/burger-810x456.jpg"
+            }
+            ,
+            {
+                "name":"cold drink",
+                "price":30,
+                "quantity":1,
+                "imgurl":"https://theoptimist.news/wp-content/uploads/2019/09/burger-810x456.jpg"
+            }
+           
+        ]
+        function render()
+        {
+            var htmldata
+        for(x in data)
+        {
+            htmldata+=`
+                    <tr id="item1">
+                                <td>
+                                    <span><img src=${data[x].imgurl} alt="" style="height: 120px;width: 100px; ;"></span>
+                                    <span style="position: absolute;">${data[x].name}<div id="burg" data-value="60">RS ${data[x].price}</div></span>
+                                    
+                                </td>
+                                <td>
+                                    <div>
+                                        
+                                        <div class="quantity" >
+                                            <button id="${x}" onclick="decrement(this)"> – </button>
+                                            <div class="2"><input type="text" class="_253qQJ" value=${data[x].quantity}></div>
+                                            <button id="${x}"onclick="increment(this)"> + </button>
+                                        </div>
+                                        <br>
+                                        <div id="amount">${data[x].quantity*data[x].price }</div>
+                                    </div>
+                                </td>
+                            </tr>`
+        }
+            $('#tbody').html=""
+            $('#tbody').html(htmldata)
+            $("#total").text(total())
+        }
+        $(document).ready(()=>{
+            render()
+        })
+            function increment(e)
+            {
+                data[e.id].quantity+=1
+                render()
+            }
+            function decrement(e)
+            {   if(data[e.id].quantity>1)
+                {
+                    data[e.id].quantity-=1
+                    render()
+                }
+               
+            }
+            function total()
+            {   let total=0
+                for(x in data)
+                {
+                    total+=data[x].price*data[x].quantity
+                }
+               
+                return total
+            }
+    </script>
+</body>
+</html>
